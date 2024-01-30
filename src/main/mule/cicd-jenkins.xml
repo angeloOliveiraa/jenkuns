@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></mule>
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="efd6971c-94f1-4370-ae4a-f369320f013e" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="cicd-jenkinsFlow" doc:id="a4a7928c-033a-4f09-ad31-49ce9fbe6142" >
+		<http:listener doc:name="Listener" doc:id="7a2128ac-cf04-41ed-b53c-e247c9069fa6" config-ref="HTTP_Listener_config" path="/jenku"/>
+		<set-payload value='#["mudou"]' doc:name="Set Payload" doc:id="df61ac38-5e87-41a5-9bfb-1b9cc46457bc" />
+		<logger level="INFO" doc:name="Logger" doc:id="d73e454b-bc6a-4dc9-a142-5ce8bd080756" message="#[payload]"/>
+	</flow>
+</mule>
